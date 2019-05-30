@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormsDemo.TablePage">
+    <TableView Intent="Settings">
+        <TableView.Root>
+            <TableRoot>
+                <TableSection Title="Campos">
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="Texto 1" />
+                            <Label Text="Texto 2" />
+                        </StackLayout>
+                    </ViewCell>
+                    <EntryCell Label="Nome" Placeholder="Digite seu nome"  />
+                    <SwitchCell Text="Receber promoções" On="False" />
+                </TableSection>
+                <TableSection Title=" ">
+                    <TextCell Text="Salvar" Tapped="Handle_Tapped"/>
+                </TableSection>
+            </TableRoot>
+        </TableView.Root>
+    </TableView>
+</ContentPage>

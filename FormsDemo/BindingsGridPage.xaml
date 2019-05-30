@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FormsDemo"
+             x:Class="FormsDemo.BindingsGridPage">
+    <ContentPage.Resources>
+        <local:ColorConverter x:Key="colorConv" />
+        <x:Double x:Key="sliderLabelWidth">120</x:Double>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource sliderLabelWidth}" />
+                <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Label 
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Grid.RowSpan="1"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               BindingContext="{Reference ScaleSlider}"
+               Scale="{Binding Path=Value}"
+               TextColor="{Binding Value, Source={Reference ColorSlider}, Converter={StaticResource colorConv}}"
+                x:Name="MainLabel">
+            <Label.Text>
+                <OnPlatform x:TypeArguments="x:String">
+                    <On Platform="iOS" 
+                        Value="Texto iOS" />
+                    <On>
+                        <On.Platform>Android</On.Platform>
+                        <On.Value>Texto Android</On.Value>
+                    </On>
+                </OnPlatform>
+            </Label.Text>
+            <!--<Label.TextColor>
+                <Binding Path="Value"
+                    Source="{Reference ColorSlider}">
+                    <Binding.Converter>
+                        <local:ColorConverter />
+                    </Binding.Converter>
+                </Binding>
+            </Label.TextColor>-->
+        </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                WidthRequest="{StaticResource sliderLabelWidth}"
+                BindingContext="{Reference ScaleSlider}"
+                Text="{Binding Value,StringFormat='Escala: {0:F2}'}"/>
+            <Slider 
+                Grid.Row="1"
+                Grid.Column="1"
+                x:Name="ScaleSlider"
+                HorizontalOptions="FillAndExpand"
+                Maximum="10" Minimum="1" />
+            <Label 
+                Grid.Row="2"
+                Grid.Column="0"
+                WidthRequest="{StaticResource sliderLabelWidth}"
+                BindingContext="{Reference RotationSlider}"
+                Text="{Binding Value,StringFormat='Rotação: {0:F2}'}"/>
+            <Slider 
+                Grid.Row="2"
+                Grid.Column="1"
+                x:Name="RotationSlider"
+                HorizontalOptions="FillAndExpand"
+                Maximum="360"
+                BindingContext="{Reference MainLabel}"
+                Value="{Binding Rotation, Mode=OneWayToSource}"/>
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                WidthRequest="{StaticResource sliderLabelWidth}"
+                BindingContext="{Reference RotationXSlider}"
+                Text="{Binding Value,StringFormat='Rotação X: {0:F2}'}"/>
+            <Slider 
+                Grid.Row="3"
+                Grid.Column="1"
+                x:Name="RotationXSlider"
+                HorizontalOptions="FillAndExpand"
+                Maximum="360"/>
+            <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                WidthRequest="{StaticResource sliderLabelWidth}"
+                BindingContext="{Reference ColorSlider}"
+                Text="{Binding Value,StringFormat='Matiz: {0:F2}'}"/>
+            <Slider 
+                Grid.Row="4"
+                Grid.Column="1"
+                x:Name="ColorSlider"
+                HorizontalOptions="FillAndExpand"
+                Maximum="360"/>
+    </Grid>
+</ContentPage>
